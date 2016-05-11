@@ -4,7 +4,21 @@
         http://www.springframework.org/schema/beans/spring-beans.xsd  
         http://code.alibabatech.com/schema/dubbo  
         http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
-
+<!-- 
+    <dubbo:service/> 服务配置，用于暴露一个服务，定义服务的元信息，一个服务可以用多个协议暴露，一个服务也可以注册到多个注册中心。
+    <dubbo:reference/> 引用配置，用于创建一个远程服务代理，一个引用可以指向多个注册中心。
+    <dubbo:protocol/> 协议配置，用于配置提供服务的协议信息，协议由提供方指定，消费方被动接受。
+    <dubbo:application/> 应用配置，用于配置当前应用信息，不管该应用是提供者还是消费者。
+    <dubbo:module/> 模块配置，用于配置当前模块信息，可选。
+    <dubbo:registry/> 注册中心配置，用于配置连接注册中心相关信息。
+    <dubbo:monitor/> 监控中心配置，用于配置连接监控中心相关信息，可选。
+    <dubbo:provider/> 提供方的缺省值，当ProtocolConfig和ServiceConfig某属性没有配置时，采用此缺省值，可选。
+    <dubbo:consumer/> 消费方缺省配置，当ReferenceConfig某属性没有配置时，采用此缺省值，可选。
+    <dubbo:method/> 方法配置，用于ServiceConfig和ReferenceConfig指定方法级的配置信息。
+    <dubbo:argument/> 用于指定方法参数配置
+ -->
+ 
+ 
 	<!-- 消费方应用名，用于计算依赖关系，不是匹配条件，不要与提供方一样 -->
 	<dubbo:application name="edu-web-boss" />
 
@@ -12,7 +26,13 @@
 	<!-- 注册中心地址 -->
 	<dubbo:registry protocol="zookeeper" address="${dubbo.registry.address}" />
 	
-	<!-- 用户服务接口 -->
+	<!-- 监控中心配置 -->
+	<!-- 监控中心协议，如果为protocol="registry"，表示从注册中心发现监控中心地址，否则直连监控中心 -->
+	<!-- 直连监控中心服务器地址，如：address="192.168.3.71:7070" -->
+	<dubbo:monitor protocol="registry"/>
+
+
+	<!-- 用户服务接口    Dubbo缺省会在启动时检查依赖的服务是否可用，不可用时会抛出异常，阻止Spring初始化完成，以便上线时，能及早发现问题，默认check=true-->
 	<dubbo:reference interface="com.cpsh.facade.user.Inf.PmsUserFacade" id="pmsUserFacade" check="false" />
 
 
