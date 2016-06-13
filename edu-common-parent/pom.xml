@@ -473,6 +473,22 @@
 
 	<build>
 		<plugins>
+		    
+		    <plugin>
+		      <groupId>org.codehaus.sonar</groupId>
+		      <artifactId>sonar-maven-plugin</artifactId>
+		      <version>4.5.7</version>
+		      <executions>
+		          <execution>
+		              <id>sonar</id>
+		              <phase>site</phase>
+		              <goals>
+		                  <goal>sonar</goal>
+		              </goals>
+		          </execution>
+		      </executions>
+		    </plugin>
+		
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-deploy-plugin</artifactId>
